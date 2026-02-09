@@ -24,7 +24,6 @@ body {
     justify-content: center;
 }
 
-
 .app { 
     width: 100%;
     max-width: 420px; 
@@ -35,7 +34,6 @@ body {
     position: relative;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
-
 
 .status-bar {
     height: 24px;
@@ -48,7 +46,6 @@ body {
     font-size: 12px;
 }
 
-
 .header { 
     padding: 25px 20px; 
     background: var(--primary); 
@@ -59,10 +56,9 @@ body {
 .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
 .header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
 
-
 .content { 
     padding: 20px; 
-    padding-bottom: 120px; /* Space for footer */
+    padding-bottom: 120px; 
 }
 
 .section-title { 
@@ -74,32 +70,25 @@ body {
     align-items: center;
 }
 
-
-.flavor-nav { 
-    display: flex; 
-    overflow-x: auto; 
-    padding: 5px 0 15px; 
-    gap: 12px; 
-    scrollbar-width: none; 
-}
-.flavor-nav::-webkit-scrollbar { display: none; }
-
-.flavor-card { 
-    flex: 0 0 130px; 
+/* Featured Classic Card */
+.classic-display {
     background: var(--card);
-    text-align: center; 
-    border-radius: 20px; 
-    padding: 15px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 10px;
 }
-.flavor-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; background: #fdfdfd; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.flavor-card.active { transform: translateY(-5px); background: var(--primary); color: white; }
-.flavor-card.active span { color: rgba(255,255,255,0.8); }
-.flavor-card p { margin: 0; font-size: 15px; font-weight: 700; }
-.flavor-card span { font-size: 13px; color: var(--text-sec); }
-
+.classic-display img { 
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+    margin-bottom: 15px; 
+    border: 3px solid var(--primary);
+}
+.classic-display h2 { margin: 0; font-size: 22px; }
+.classic-display .price-tag { color: var(--primary); font-weight: 800; font-size: 18px; margin-top: 5px; display: block; }
 
 .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .addon-item { 
@@ -116,7 +105,6 @@ body {
 .addon-item.selected { background: #fff3e0; border: 2px solid var(--primary); }
 .addon-item .emoji { font-size: 24px; }
 .addon-item .name { font-size: 14px; font-weight: 600; }
-
 
 .footer { 
     padding: 20px; 
@@ -159,20 +147,11 @@ body {
   </div>
 
   <div class="content">
-    <div class="section-title">Select Flavor</div>
-    <div class="flavor-nav">
-      <div class="flavor-card active" onclick="selectWaffle(this, 'Classic', 15)">
-        <img src="classic.png" alt="Classic">
-        <p>Classic</p><span>₱15</span>
-      </div>
-      <div class="flavor-card" onclick="selectWaffle(this, 'Chocolate', 20)">
-        <img src="chocolate.png" alt="Chocolate">
-        <p>Chocolate</p><span>₱20</span>
-      </div>
-      <div class="flavor-card" onclick="selectWaffle(this, 'Strawberry', 25)">
-        <img src="strawberry.png" alt="Strawberry">
-        <p>Strawberry</p><span>₱25</span>
-      </div>
+    <div class="section-title">Freshly Baked</div>
+    <div class="classic-display">
+        <img src="classic.png" alt="Classic Waffle">
+        <h2>Classic Waffle</h2>
+        <span class="price-tag">₱15</span>
     </div>
 
     <div class="section-title">
@@ -205,15 +184,9 @@ body {
 </div>
 
 <script>
-let selectedWaffle = { name: "Classic", price: 15 };
+// Fixed at Classic only
+const selectedWaffle = { name: "Classic", price: 15 };
 let selectedAddons = [];
-
-function selectWaffle(el, name, price) {
-    document.querySelectorAll('.flavor-card').forEach(card => card.classList.remove('active'));
-    el.classList.add('active');
-    selectedWaffle = { name, price };
-    updateTotal();
-}
 
 function toggleAddon(el, name) {
     el.classList.toggle('selected');
